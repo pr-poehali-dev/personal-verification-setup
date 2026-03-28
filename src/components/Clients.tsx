@@ -89,7 +89,7 @@ export default function Clients() {
                 <label className="block text-xs text-muted-foreground mb-1 uppercase tracking-wide">{f.label}</label>
                 <input type={f.type || 'text'} value={form[f.key as keyof typeof form]} required
                   onChange={e => set(f.key, e.target.value)}
-                  className="w-full bg-secondary border border-border rounded-lg py-2 px-3 text-white text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                  className="w-full sber-input"
                   placeholder={f.placeholder} />
               </div>
             ))}
@@ -109,7 +109,7 @@ export default function Clients() {
         <div className="relative">
           <Icon name="Search" size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
           <input value={search} onChange={e => setSearch(e.target.value)}
-            className="w-full bg-secondary border border-border rounded-lg py-2.5 pl-9 pr-4 text-white text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+            className="w-full sber-input pl-9 pr-4"
             placeholder="Поиск по ФИО, паспорту, телефону..." />
         </div>
       </div>
@@ -157,7 +157,7 @@ export default function Clients() {
                     {showAddAccount === client.id && (
                       <div className="p-3 rounded-lg mb-2 flex gap-2" style={{ background: 'hsla(145,63%,42%,0.08)', border: '1px solid hsla(145,63%,42%,0.2)' }}>
                         <select value={accForm.type} onChange={e => setAccForm(f => ({ ...f, type: e.target.value }))}
-                          className="flex-1 bg-secondary border border-border rounded py-1.5 px-2 text-white text-xs focus:outline-none">
+                          className="flex-1 sber-input text-xs">
                           <option value="checking">Текущий</option>
                           <option value="savings">Сберегательный</option>
                           <option value="deposit">Депозитный</option>

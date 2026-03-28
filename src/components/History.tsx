@@ -56,7 +56,7 @@ export default function History() {
           <div className="relative">
             <Icon name="Search" size={14} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
             <input value={search} onChange={e => setSearch(e.target.value)}
-              className="w-full bg-secondary border border-border rounded-lg py-1.5 pl-8 pr-3 text-white text-xs focus:outline-none focus:ring-2 focus:ring-primary"
+              className="w-full sber-input pl-8 pr-3 text-xs"
               placeholder="Поиск..." />
           </div>
         </div>

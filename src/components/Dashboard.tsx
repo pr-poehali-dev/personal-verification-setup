@@ -13,70 +13,84 @@ export default function Dashboard({ employee, onNavigate }: DashboardProps) {
   const todayVolume = todayTxns.reduce((s, t) => s + t.amount, 0);
   const waitingQueue = data.queue.filter(q => q.status === 'waiting').length;
   const activeAccounts = data.accounts.filter(a => a.status === 'active').length;
-  const activeClients = data.clients.length;
 
   const stats = [
-    { label: 'Операций сегодня', value: todayTxns.length.toString(), icon: 'Activity', color: 'text-primary' },
-    { label: 'Оборот сегодня', value: formatMoney(todayVolume), icon: 'TrendingUp', color: 'text-blue-400' },
-    { label: 'В очереди', value: waitingQueue.toString(), icon: 'Users', color: 'text-yellow-400' },
-    { label: 'Активных счетов', value: activeAccounts.toString(), icon: 'BookOpen', color: 'text-purple-400' },
-    { label: 'Клиентов в базе', value: activeClients.toString(), icon: 'UserCheck', color: 'text-cyan-400' },
+    { label: 'Операций сегодня', value: String(todayTxns.length), icon: 'Activity', accent: 'hsl(var(--primary))' },
+    { label: 'Оборот сегодня', value: formatMoney(todayVolume), icon: 'TrendingUp', accent: '#2563eb' },
+    { label: 'В очереди', value: String(waitingQueue), icon: 'Users', accent: '#d97706' },
+    { label: 'Активных счетов', value: String(activeAccounts), icon: 'BookOpen', accent: '#7c3aed' },
+    { label: 'Клиентов', value: String(data.clients.length), icon: 'UserCheck', accent: '#0891b2' },
   ];
 
   const quickOps = [
-    { id: 'cash_out', label: 'Выдача наличных', icon: 'ArrowDownCircle', desc: 'ОКУД 0402009', color: 'hsl(145,63%,38%)' },
-    { id: 'cash_in', label: 'Взнос наличных', icon: 'ArrowUpCircle', desc: 'ОКУД 0402008', color: 'hsl(210,63%,45%)' },
-    { id: 'transfer', label: 'Перевод', icon: 'ArrowLeftRight', desc: 'Между счетами', color: 'hsl(260,63%,55%)' },
-    { id: 'credits', label: 'Кредит', icon: 'CreditCard', desc: 'Выдача кредита', color: 'hsl(30,80%,50%)' },
-    { id: 'cards', label: 'Выпуск карты', icon: 'Wallet', desc: 'Новая карта', color: 'hsl(0,63%,50%)' },
-    { id: 'queue', label: 'Очередь', icon: 'ListOrdered', desc: 'Управление', color: 'hsl(180,63%,40%)' },
+    { id: 'cash_out', label: 'Выдача наличных', icon: 'ArrowDownCircle', desc: 'ОКУД 0402009', color: '#ef4444', bg: '#fef2f2' },
+    { id: 'cash_in', label: 'Взнос наличных', icon: 'ArrowUpCircle', desc: 'ОКУД 0402008', color: '#16a34a', bg: '#f0fdf4' },
+    { id: 'transfer', label: 'Перевод', icon: 'ArrowLeftRight', desc: 'Между счетами', color: '#7c3aed', bg: '#f5f3ff' },
+    { id: 'credits', label: 'Кредит', icon: 'CreditCard', desc: 'Выдача кредита', color: '#d97706', bg: '#fffbeb' },
+    { id: 'cards', label: 'Карты', icon: 'Wallet', desc: 'Выпуск карты', color: '#0891b2', bg: '#ecfeff' },
+    { id: 'queue', label: 'Очередь', icon: 'ListOrdered', desc: 'Управление', color: '#6366f1', bg: '#eef2ff' },
   ];
+
+  const typeIcons: Record<string, string> = {
+    cash_out: 'ArrowDownCircle', cash_in: 'ArrowUpCircle', transfer: 'ArrowLeftRight',
+    credit: 'CreditCard', card_issue: 'Wallet',
+  };
+  const typeColors: Record<string, string> = {
+    cash_out: '#ef4444', cash_in: '#16a34a', transfer: '#7c3aed',
+    credit: '#d97706', card_issue: '#0891b2',
+  };
 
   return (
     <div className="p-6 space-y-6 animate-fade-in">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-white">Добро пожаловать, {employee.name.split(' ')[0]}!</h1>
-          <p className="text-muted-foreground text-sm mt-1">
-            {new Date().toLocaleDateString('ru-RU', { weekday: 'long', day: 'numeric', month: 'long', year: 'numeric' })} · {employee.roleLabel}
+          <h1 className="text-xl font-bold text-foreground">
+            Добро пожаловать, {employee.name.split(' ')[0]}!
+          </h1>
+          <p className="text-muted-foreground text-sm mt-0.5">
+            {new Date().toLocaleDateString('ru-RU', { weekday: 'long', day: 'numeric', month: 'long' })}
+            {' · '}{employee.roleLabel}
           </p>
         </div>
-        <div className="flex items-center gap-2 px-4 py-2 rounded-full text-xs font-medium" style={{ background: 'hsla(145,63%,42%,0.15)', border: '1px solid hsla(145,63%,42%,0.3)' }}>
-          <div className="w-2 h-2 rounded-full bg-primary animate-pulse" />
-          <span className="text-primary">Система активна</span>
+        <div className="flex items-center gap-2 px-3 py-1.5 rounded-full text-xs font-medium border"
+          style={{ background: '#f0fdf4', borderColor: '#bbf7d0', color: '#15803d' }}>
+          <div className="w-1.5 h-1.5 rounded-full animate-pulse" style={{ background: '#16a34a' }} />
+          Система активна
         </div>
       </div>
 
       {/* Stats */}
-      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4">
-        {stats.map((s) => (
+      <div className="grid grid-cols-2 md:grid-cols-5 gap-3">
+        {stats.map(s => (
           <div key={s.label} className="sber-card p-4">
             <div className="flex items-center gap-2 mb-2">
-              <Icon name={s.icon} size={16} className={s.color} />
-              <span className="text-xs text-muted-foreground">{s.label}</span>
+              <Icon name={s.icon} size={14} style={{ color: s.accent }} />
+              <span className="text-xs text-muted-foreground leading-tight">{s.label}</span>
             </div>
-            <div className={`text-xl font-bold font-mono ${s.color}`}>{s.value}</div>
+            <div className="text-xl font-bold font-mono" style={{ color: s.accent }}>{s.value}</div>
           </div>
         ))}
       </div>
 
       {/* Quick ops */}
       <div>
-        <h2 className="text-lg font-semibold text-white mb-4">Быстрые операции</h2>
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+        <h2 className="text-base font-bold text-foreground mb-3">Быстрые операции</h2>
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
           {quickOps.map(op => (
             <button
               key={op.id}
               onClick={() => onNavigate(op.id)}
-              className="sber-card p-5 text-left hover:border-primary transition-all group"
+              className="sber-card p-4 text-left hover:shadow-md transition-all group hover:border-primary/30"
             >
-              <div className="w-10 h-10 rounded-xl flex items-center justify-center mb-3"
-                style={{ background: `${op.color}22`, border: `1px solid ${op.color}44` }}>
-                <Icon name={op.icon} size={20} style={{ color: op.color }} />
+              <div className="w-9 h-9 rounded-lg flex items-center justify-center mb-3"
+                style={{ background: op.bg }}>
+                <Icon name={op.icon} size={18} style={{ color: op.color }} />
               </div>
-              <div className="text-white font-medium text-sm group-hover:text-primary transition-colors">{op.label}</div>
-              <div className="text-muted-foreground text-xs mt-1">{op.desc}</div>
+              <div className="text-sm font-semibold text-foreground group-hover:text-primary transition-colors">
+                {op.label}
+              </div>
+              <div className="text-xs text-muted-foreground mt-0.5">{op.desc}</div>
             </button>
           ))}
         </div>
@@ -84,29 +98,33 @@ export default function Dashboard({ employee, onNavigate }: DashboardProps) {
 
       {/* Recent transactions */}
       <div>
-        <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-semibold text-white">Последние операции</h2>
-          <button onClick={() => onNavigate('history')} className="text-xs text-primary hover:underline">Все операции →</button>
+        <div className="flex items-center justify-between mb-3">
+          <h2 className="text-base font-bold text-foreground">Последние операции</h2>
+          <button onClick={() => onNavigate('history')} className="text-xs text-primary hover:underline">
+            Все операции →
+          </button>
         </div>
         <div className="sber-card overflow-hidden">
           {data.transactions.length === 0 ? (
             <div className="p-8 text-center text-muted-foreground text-sm">Операций ещё не было</div>
           ) : (
             <div className="divide-y divide-border">
-              {data.transactions.slice(0, 5).map(txn => (
-                <div key={txn.id} className="flex items-center justify-between p-4 hover:bg-secondary transition-colors">
+              {data.transactions.slice(0, 6).map(txn => (
+                <div key={txn.id} className="flex items-center justify-between px-4 py-3 hover:bg-secondary/50 transition-colors">
                   <div className="flex items-center gap-3">
-                    <div className={`w-8 h-8 rounded-full flex items-center justify-center ${txn.type === 'cash_out' ? 'bg-red-500/15' : txn.type === 'cash_in' ? 'bg-green-500/15' : 'bg-blue-500/15'}`}>
-                      <Icon name={txn.type === 'cash_out' ? 'ArrowDownCircle' : txn.type === 'cash_in' ? 'ArrowUpCircle' : 'ArrowLeftRight'} size={16}
-                        className={txn.type === 'cash_out' ? 'text-red-400' : txn.type === 'cash_in' ? 'text-green-400' : 'text-blue-400'} />
+                    <div className="w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0"
+                      style={{ background: `${typeColors[txn.type] || '#888'}18` }}>
+                      <Icon name={typeIcons[txn.type] || 'Circle'} size={15}
+                        style={{ color: typeColors[txn.type] || '#888' }} />
                     </div>
                     <div>
-                      <div className="text-sm text-white">{txn.typeLabel}</div>
+                      <div className="text-sm font-medium text-foreground">{txn.typeLabel}</div>
                       <div className="text-xs text-muted-foreground">{txn.clientName} · {formatDate(txn.date)}</div>
                     </div>
                   </div>
-                  <div className={`font-mono font-semibold text-sm ${txn.type === 'cash_out' ? 'text-red-400' : 'text-primary'}`}>
-                    {txn.type === 'cash_out' ? '-' : '+'}{formatMoney(txn.amount)}
+                  <div className="font-mono font-semibold text-sm"
+                    style={{ color: txn.type === 'cash_out' ? '#ef4444' : '#16a34a' }}>
+                    {txn.type === 'cash_out' ? '−' : '+'}{formatMoney(txn.amount)}
                   </div>
                 </div>
               ))}

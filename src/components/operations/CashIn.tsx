@@ -158,7 +158,7 @@ export default function CashIn({ employee }: CashInProps) {
               type="text"
               value={inputSms}
               onChange={e => setInputSms(e.target.value.replace(/\D/g, '').slice(0, 6))}
-              className="w-full bg-secondary border border-border rounded-lg py-3 px-4 text-white text-xl text-center tracking-[0.5em] font-mono focus:outline-none focus:ring-2 focus:ring-primary"
+              className="w-full sber-input text-xl text-center tracking-[0.5em] font-mono"
               placeholder="000000"
             />
             <button type="button" onClick={() => setInputSms(smsCode)} className="text-xs text-muted-foreground hover:text-primary underline">
@@ -180,10 +180,10 @@ export default function CashIn({ employee }: CashInProps) {
                   type="text"
                   value={accountNumber}
                   onChange={e => setAccountNumber(e.target.value)}
-                  className="flex-1 bg-secondary border border-border rounded-lg py-2.5 px-4 text-white text-sm focus:outline-none focus:ring-2 focus:ring-primary font-mono"
+                  className="flex-1 sber-input font-mono"
                   placeholder="40817810000000000001"
                 />
-                <button type="button" onClick={handleSearch} className="px-4 py-2.5 rounded-lg text-sm font-medium text-white" style={{ background: 'hsl(var(--secondary))', border: '1px solid hsl(var(--border))' }}>
+                <button type="button" onClick={handleSearch} className="px-4 py-2.5 rounded-lg text-sm font-medium text-foreground border border-border hover:bg-secondary transition-colors bg-white">
                   Найти
                 </button>
               </div>
@@ -210,7 +210,7 @@ export default function CashIn({ employee }: CashInProps) {
                 type="number"
                 value={amount}
                 onChange={e => setAmount(e.target.value)}
-                className="w-full bg-secondary border border-border rounded-lg py-2.5 px-4 text-white text-sm focus:outline-none focus:ring-2 focus:ring-primary font-mono"
+                className="w-full sber-input font-mono"
                 placeholder="0.00"
                 min="1"
                 step="0.01"

@@ -4,50 +4,51 @@
 
 @layer base {
   :root {
-    --background: 210 20% 8%;
-    --foreground: 0 0% 95%;
+    /* === СБЕРБАНК СВЕТЛАЯ ТЕМА === */
+    --background: 0 0% 96%;
+    --foreground: 220 20% 12%;
 
-    --card: 210 18% 11%;
-    --card-foreground: 0 0% 95%;
+    --card: 0 0% 100%;
+    --card-foreground: 220 20% 12%;
 
-    --popover: 210 18% 12%;
-    --popover-foreground: 0 0% 95%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 220 20% 12%;
 
-    --primary: 145 63% 42%;
+    /* Зелёный Сбербанк #21A038 */
+    --primary: 133 67% 37%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 210 16% 16%;
-    --secondary-foreground: 0 0% 85%;
+    --secondary: 0 0% 93%;
+    --secondary-foreground: 220 20% 20%;
 
-    --muted: 210 15% 15%;
-    --muted-foreground: 215 15% 55%;
+    --muted: 0 0% 91%;
+    --muted-foreground: 220 10% 45%;
 
-    --accent: 145 63% 42%;
+    --accent: 133 67% 37%;
     --accent-foreground: 0 0% 100%;
 
-    --destructive: 0 75% 55%;
+    --destructive: 0 72% 51%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 210 15% 18%;
-    --input: 210 15% 18%;
-    --ring: 145 63% 42%;
+    --border: 220 10% 88%;
+    --input: 220 10% 88%;
+    --ring: 133 67% 37%;
 
-    --radius: 0.75rem;
+    --radius: 0.5rem;
 
-    --sidebar-background: 210 22% 7%;
-    --sidebar-foreground: 0 0% 85%;
-    --sidebar-primary: 145 63% 42%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 210 18% 13%;
-    --sidebar-accent-foreground: 0 0% 95%;
-    --sidebar-border: 210 15% 15%;
-    --sidebar-ring: 145 63% 42%;
+    /* Сайдбар — тёмно-зелёный как у Сбера */
+    --sidebar-background: 133 60% 22%;
+    --sidebar-foreground: 0 0% 95%;
+    --sidebar-primary: 0 0% 100%;
+    --sidebar-primary-foreground: 133 60% 22%;
+    --sidebar-accent: 133 55% 18%;
+    --sidebar-accent-foreground: 0 0% 100%;
+    --sidebar-border: 133 45% 18%;
+    --sidebar-ring: 133 67% 50%;
 
-    --sber-green: 145 63% 42%;
-    --sber-green-light: 145 55% 52%;
-    --sber-dark: 210 22% 7%;
-    --sber-card: 210 18% 11%;
-    --sber-surface: 210 16% 14%;
+    --sber-green: 133 67% 37%;
+    --sber-green-dark: 133 60% 22%;
+    --sber-green-light: 133 55% 45%;
   }
 }
 
@@ -62,15 +63,15 @@
   }
 
   ::-webkit-scrollbar {
-    width: 6px;
-    height: 6px;
+    width: 5px;
+    height: 5px;
   }
   ::-webkit-scrollbar-track {
     background: hsl(var(--background));
   }
   ::-webkit-scrollbar-thumb {
     background: hsl(var(--border));
-    border-radius: 3px;
+    border-radius: 4px;
   }
   ::-webkit-scrollbar-thumb:hover {
     background: hsl(var(--primary));
@@ -79,70 +80,78 @@
 
 @layer utilities {
   .sber-card {
-    @apply bg-card border border-border rounded-xl;
+    @apply bg-card border border-border rounded-xl shadow-sm;
   }
-  .sber-surface {
-    background: hsl(var(--sber-surface));
+  .sber-btn {
+    background: hsl(var(--primary));
+    color: white;
+    @apply rounded-lg font-semibold transition-all;
   }
-  .text-mono {
-    font-family: "IBM Plex Mono", monospace;
+  .sber-btn:hover {
+    background: hsl(133, 67%, 32%);
+  }
+  .sber-sidebar {
+    background: hsl(var(--sidebar-background));
   }
   .glow-green {
-    box-shadow: 0 0 20px hsla(145, 63%, 42%, 0.3);
+    box-shadow: 0 4px 20px hsla(133, 67%, 37%, 0.25);
   }
   .glow-green-sm {
-    box-shadow: 0 0 10px hsla(145, 63%, 42%, 0.2);
+    box-shadow: 0 2px 8px hsla(133, 67%, 37%, 0.2);
+  }
+  .sber-input {
+    @apply bg-white border border-border rounded-lg py-2.5 px-4 text-foreground text-sm focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent transition-all;
   }
 }
 
 @keyframes fade-in {
   from {
     opacity: 0;
-    transform: translateY(8px);
+    transform: translateY(6px);
   }
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
-@keyframes slide-in-right {
-  from {
-    opacity: 0;
-    transform: translateX(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateX(0);
-  }
-}
 @keyframes scale-in {
   from {
     opacity: 0;
-    transform: scale(0.95);
+    transform: scale(0.97);
   }
   to {
     opacity: 1;
     transform: scale(1);
   }
 }
+@keyframes slide-in-right {
+  from {
+    opacity: 0;
+    transform: translateX(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
 @keyframes pulse-green {
   0%,
   100% {
-    box-shadow: 0 0 0 0 hsla(145, 63%, 42%, 0.4);
+    box-shadow: 0 0 0 0 hsla(133, 67%, 37%, 0.4);
   }
   50% {
-    box-shadow: 0 0 0 8px hsla(145, 63%, 42%, 0);
+    box-shadow: 0 0 0 7px hsla(133, 67%, 37%, 0);
   }
 }
 
 .animate-fade-in {
-  animation: fade-in 0.35s ease-out forwards;
-}
-.animate-slide-in-right {
-  animation: slide-in-right 0.3s ease-out forwards;
+  animation: fade-in 0.3s ease-out forwards;
 }
 .animate-scale-in {
-  animation: scale-in 0.25s ease-out forwards;
+  animation: scale-in 0.22s ease-out forwards;
+}
+.animate-slide-in-right {
+  animation: slide-in-right 0.28s ease-out forwards;
 }
 .animate-pulse-green {
   animation: pulse-green 2s infinite;

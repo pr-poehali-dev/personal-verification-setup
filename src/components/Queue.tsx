@@ -134,19 +134,19 @@ export default function Queue({ employee }: QueueProps) {
             <div>
               <label className="block text-xs text-muted-foreground mb-1">ФИО клиента</label>
               <input value={addForm.clientName} onChange={e => setAddForm(f => ({ ...f, clientName: e.target.value }))} required
-                className="w-full bg-secondary border border-border rounded-lg py-2 px-3 text-white text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                className="w-full sber-input"
                 placeholder="Иванова Мария С." />
             </div>
             <div>
               <label className="block text-xs text-muted-foreground mb-1">Телефон</label>
               <input value={addForm.phone} onChange={e => setAddForm(f => ({ ...f, phone: e.target.value }))} required
-                className="w-full bg-secondary border border-border rounded-lg py-2 px-3 text-white text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                className="w-full sber-input"
                 placeholder="+7 (999) 000-00-00" />
             </div>
             <div>
               <label className="block text-xs text-muted-foreground mb-1">Тип операции</label>
               <select value={addForm.operationCode} onChange={e => setAddForm(f => ({ ...f, operationCode: e.target.value }))}
-                className="w-full bg-secondary border border-border rounded-lg py-2 px-3 text-white text-sm focus:outline-none focus:ring-2 focus:ring-primary">
+                className="w-full sber-input">
                 {OPERATIONS.map(o => <option key={o.code} value={o.code}>{o.label}</option>)}
               </select>
             </div>

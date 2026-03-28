@@ -69,7 +69,7 @@ export default function Accounts() {
             <div className="md:col-span-2">
               <label className="block text-xs text-muted-foreground mb-1 uppercase tracking-wide">Клиент</label>
               <select value={form.clientId} onChange={e => setForm(f => ({ ...f, clientId: e.target.value }))} required
-                className="w-full bg-secondary border border-border rounded-lg py-2 px-3 text-white text-sm focus:outline-none focus:ring-2 focus:ring-primary">
+                className="w-full sber-input">
                 <option value="">Выберите клиента</option>
                 {data.clients.map(c => <option key={c.id} value={c.id}>{c.fullName}</option>)}
               </select>
@@ -77,7 +77,7 @@ export default function Accounts() {
             <div>
               <label className="block text-xs text-muted-foreground mb-1 uppercase tracking-wide">Тип счёта</label>
               <select value={form.type} onChange={e => setForm(f => ({ ...f, type: e.target.value }))}
-                className="w-full bg-secondary border border-border rounded-lg py-2 px-3 text-white text-sm focus:outline-none focus:ring-2 focus:ring-primary">
+                className="w-full sber-input">
                 <option value="checking">Текущий</option>
                 <option value="savings">Сберегательный</option>
                 <option value="deposit">Депозитный</option>
@@ -87,7 +87,7 @@ export default function Accounts() {
             <div>
               <label className="block text-xs text-muted-foreground mb-1 uppercase tracking-wide">Нач. баланс (₽)</label>
               <input type="number" value={form.initialBalance} onChange={e => setForm(f => ({ ...f, initialBalance: e.target.value }))}
-                className="w-full bg-secondary border border-border rounded-lg py-2 px-3 text-white text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                className="w-full sber-input"
                 min="0" step="0.01" />
             </div>
             <div className="md:col-span-4 flex justify-end gap-2">
@@ -102,7 +102,7 @@ export default function Accounts() {
         <div className="relative">
           <Icon name="Search" size={16} className="absolute left-3 top-1/2 -translate-y-1/2 text-muted-foreground" />
           <input value={search} onChange={e => setSearch(e.target.value)}
-            className="w-full bg-secondary border border-border rounded-lg py-2.5 pl-9 pr-4 text-white text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+            className="w-full sber-input pl-9 pr-4"
             placeholder="Поиск по номеру счёта или клиенту..." />
         </div>
       </div>

@@ -70,19 +70,19 @@ export default function Terminals() {
             <div>
               <label className="block text-xs text-muted-foreground mb-1">Название</label>
               <input value={form.name} onChange={e => setForm(f => ({ ...f, name: e.target.value }))} required
-                className="w-full bg-secondary border border-border rounded-lg py-2 px-3 text-white text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                className="w-full sber-input"
                 placeholder="Терминал №3" />
             </div>
             <div>
               <label className="block text-xs text-muted-foreground mb-1">IP-адрес</label>
               <input value={form.ipAddress} onChange={e => setForm(f => ({ ...f, ipAddress: e.target.value }))} required
-                className="w-full bg-secondary border border-border rounded-lg py-2 px-3 text-white text-sm focus:outline-none focus:ring-2 focus:ring-primary font-mono"
+                className="w-full sber-input font-mono"
                 placeholder="192.168.1.103" />
             </div>
             <div>
               <label className="block text-xs text-muted-foreground mb-1">Расположение</label>
               <input value={form.location} onChange={e => setForm(f => ({ ...f, location: e.target.value }))} required
-                className="w-full bg-secondary border border-border rounded-lg py-2 px-3 text-white text-sm focus:outline-none focus:ring-2 focus:ring-primary"
+                className="w-full sber-input"
                 placeholder="Касса 3" />
             </div>
             <div className="flex items-end">

@@ -15,6 +15,7 @@ import Accounts from '@/components/Accounts';
 import History from '@/components/History';
 import Analytics from '@/components/Analytics';
 import Terminals from '@/components/Terminals';
+import Employees from '@/components/Employees';
 import { Toaster } from '@/components/ui/toaster';
 
 export default function Index() {
@@ -55,6 +56,7 @@ export default function Index() {
       case 'history': return <History />;
       case 'analytics': return <Analytics />;
       case 'terminals': return <Terminals />;
+      case 'employees': return <Employees />;
       default: return <Dashboard employee={employee} onNavigate={setSection} />;
     }
   };
